@@ -1,12 +1,19 @@
 main {
   padding: 10px;
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
+}
+
+img {
+  max-width: 100%;
 }
 
 header {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 50px;
+  align-items: center;
+  margin-top: 10px;
 }
 
 header a {
@@ -16,9 +23,39 @@ header a {
 
 a.logo {
   font-weight: bold;
+  font-size: 1.3rem;
 }
 
 header nav {
   display: flex;
   gap: 15px;
+}
+
+div.post {
+  display: grid;
+  grid-template-columns: .9fr 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+div.post p.info {
+  margin-top: 10px;
+  color: #888;
+  font-size: .8rem;
+  display: flex;
+  gap: 10px;
+  font-weight: bold;
+}
+
+div.post div.content p.summary {
+  line-height: 1.3rem;
+}
+
+div.post p.info a.author {
+  color: #333;
+}
+
+div.post div.content h2 {
+  margin: 0;
+  font-size: 1.5rem;
 }
