@@ -4,9 +4,9 @@ export default function Header() {
   
     return (
         <header>
-          <a href="#" className="logo">
+          <Link to={"/"} className="logo">
             My Blog
-          </a>
+          </Link>
           <nav>
             <Link to={'/login'}>Login</Link>
             <a href="#">Register</a>
