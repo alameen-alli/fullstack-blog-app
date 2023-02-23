@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css"; 
-import Post from "./Post";
-import 
+import Post from "./components/Post";
+import Header from "./components/Header";
 
 function App() {
   return (
@@ -17,6 +17,9 @@ function App() {
             </main>
         }
       />
+      <Route path="/login" element={
+        <div>Login Page</div>
+      }/>
     </Routes>
   );
 }
