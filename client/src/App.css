@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 main {
   padding: 10px;
   max-width: 700px;
@@ -58,4 +62,27 @@ div.post p.info a.author {
 div.post div.content h2 {
   margin: 0;
   font-size: 1.5rem;
+}
+
+form.register, form.login {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+input {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  padding: 5px 10px;
+  border-style: 2px solid #fff;
+}
+
+button {
+  width: 100%;
+  padding: 5px;
+  background-color: #555;
+  border-width: 0;
+  border-radius: 5px;
+  color: #fff;
 }

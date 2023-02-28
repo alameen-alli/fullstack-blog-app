@@ -9,7 +9,7 @@ export default function Header() {
           </Link>
           <nav>
             <Link to={'/login'}>Login</Link>
-            <a href="#">Register</a>
+            <Link to={'/register'}>Register</Link>
           </nav>
         </header>
     );
