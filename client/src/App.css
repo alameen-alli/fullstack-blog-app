@@ -75,7 +75,7 @@ input {
   margin-bottom: 5px;
   border-radius: 5px;
   padding: 5px 10px;
-  border-style: 2px solid #fff;
+  border: 2px solid #555;
 }
 
 button {
@@ -85,4 +85,8 @@ button {
   border-width: 0;
   border-radius: 5px;
   color: #fff;
+}
+
+form h1 {
+  text-align: center;
 }
