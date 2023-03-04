@@ -39,12 +39,15 @@ app.post('/login', async (req,res) => {
   if (passWordOk) {
     jwt.sign({username, id:UserDetails._id}, secretToken, {}, (err, token) => {
       if (err) throw err;
-      res.cookie('token', token).json('ok');
+      res.cookie('token', token).json({
+        id:UserDetails._id,
+        username
+      });
     });
   } else {
     res.status(400).json('Wrong credentials!');
   }
-})
+});
 
 app.get('/profile', (req,res) => {
   const {token} = req.cookies;
@@ -53,6 +56,11 @@ app.get('/profile', (req,res) => {
     res.json(info);
   })
 });
+
+// logout endpoint clears the token cookie by setting its value to an empty string
+app.post('/logout', (req, res) => {
+  res.cookie('token', '').json('token cleared');
+})
 
 const PORT = 4040;
 app.listen(PORT, function () {

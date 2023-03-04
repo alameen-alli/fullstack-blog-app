@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect} from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../UserContext";
+
 
 export default function Header() {
-  const [username, setUsername] = useState(null);
+const {setCurrentUserInfo, currentUserInfo} = useContext(UserContext);
 
   useEffect(() => {
     fetch('http://localhost:4040/profile', {
@@ -12,7 +14,7 @@ export default function Header() {
         return response.json();
       })
       .then(userInfo => {
-        setUsername(userInfo.username);
+        setCurrentUserInfo(userInfo);
       });
   }, []);
 
@@ -20,8 +22,11 @@ export default function Header() {
     fetch('http://localhost:4040/logout', {
       credentials: 'include',
       method: 'POST'
-    })
+    });
+    setCurrentUserInfo(null);
   }
+
+  const username = currentUserInfo?.username;
 
     return (
         <header>
@@ -32,7 +37,7 @@ export default function Header() {
             {username && (
               <>
               <Link to={'/create'}>Create new post</Link>
-              <a onClick={logout}>Logout</a>
+              <a href="#" onClick={logout}>Logout</a>
               </>
             )}
             {!username && (
