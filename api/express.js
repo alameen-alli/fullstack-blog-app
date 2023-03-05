@@ -10,6 +10,7 @@ const multer  = require('multer');
 const uploadMiddleware = multer({ dest: 'uploads/' });
 const fs = require('fs');
 const path = require("path");
+const Post = require("./models/Post");
 
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json());
@@ -19,7 +20,7 @@ const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
 const secretToken = "jkdnonenrjnenroieern";
 
-mongoose.connect("mongodb+srv://allialameen8739:zzZcITrGkRdV6YwM@cluster0.hnsov1d.mongodb.net/?retryWrites=true&w=majority");
+mongoose.connect("mongodb://allialameen8739:zzZcITrGkRdV6YwM@ac-kavuqoc-shard-00-00.hnsov1d.mongodb.net:27017,ac-kavuqoc-shard-00-01.hnsov1d.mongodb.net:27017,ac-kavuqoc-shard-00-02.hnsov1d.mongodb.net:27017/?ssl=true&replicaSet=atlas-8cpki0-shard-0&authSource=admin&retryWrites=true&w=majority");
 
 
 // This route handles the registration process by extracting the username and password from the request body. 
@@ -81,12 +82,22 @@ app.post("/logout", (req, res) => {
   res.cookie("token", "").json("token cleared");
 });
 
-app.post("/post", uploadMiddleware.single('file'), (req, res) => {
+app.post("/post", uploadMiddleware.single('file'), async (req, res) => {
   const {originalname, path} = req.file;
   const parts = originalname.split('.');
   const ext = parts[parts.length - 1];
-  fs.renameSync(path, path + '.' + ext);
-  res.json({ext});
+  const newPath = path + '.' + ext;
+  fs.renameSync(path, newPath );
+
+  const {title, summary, content} = req.body;
+  const postContent = await Post.create({
+    title,
+    summary,
+    content,
+    image:newPath
+  });
+
+  res.json(postContent);
 });
 
 const PORT = 4040;
@@ -94,6 +105,5 @@ app.listen(PORT, function () {
   console.log(`Server listening on port ${PORT}`);
 });
 
-// mongodb+srv://allialameen8739:zzZcITrGkRdV6YwM@cluster0.hnsov1d.mongodb.net/?retryWrites=true&w=majority
-
+// mongodb://allialameen8739:zzZcITrGkRdV6YwM@ac-kavuqoc-shard-00-00.hnsov1d.mongodb.net:27017,ac-kavuqoc-shard-00-01.hnsov1d.mongodb.net:27017,ac-kavuqoc-shard-00-02.hnsov1d.mongodb.net:27017/?ssl=true&replicaSet=atlas-8cpki0-shard-0&authSource=admin&retryWrites=true&w=majority
 // zzZcITrGkRdV6YwM
