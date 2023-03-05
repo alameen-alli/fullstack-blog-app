@@ -1,5 +1,9 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 * {
   box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
 main {
@@ -87,6 +91,10 @@ button {
   color: #fff;
 }
 
-form h1 {
+form.login h1, form.register h1 {
   text-align: center;
+}
+
+button.post {
+  margin-top: 10px;
 }
