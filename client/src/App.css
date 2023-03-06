@@ -55,7 +55,7 @@ div.post p.info {
   font-weight: bold;
 }
 
-div.post div.content p.summary {
+div.post div.title p.summary {
   line-height: 1.3rem;
 }
 
@@ -63,7 +63,7 @@ div.post p.info a.author {
   color: #333;
 }
 
-div.post div.content h2 {
+div.post div.title h2 {
   margin: 0;
   font-size: 1.5rem;
 }

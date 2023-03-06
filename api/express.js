@@ -82,6 +82,7 @@ app.post("/logout", (req, res) => {
   res.cookie("token", "").json("token cleared");
 });
 
+// This is an Express.js route handler for creating a new blog post. It uses the uploadMiddleware middleware to handle file uploads, renames the uploaded file, and then creates a new Post object with the provided title, summary, content, and image path. Finally, it sends a JSON response with the created postContent.
 app.post("/post", uploadMiddleware.single('file'), async (req, res) => {
   const {originalname, path} = req.file;
   const parts = originalname.split('.');
@@ -89,16 +90,27 @@ app.post("/post", uploadMiddleware.single('file'), async (req, res) => {
   const newPath = path + '.' + ext;
   fs.renameSync(path, newPath );
 
-  const {title, summary, content} = req.body;
-  const postContent = await Post.create({
-    title,
-    summary,
-    content,
-    image:newPath
+  const { token } = req.cookies;
+  jwt.verify(token, secretToken, {}, async (err, info) => {
+    if (err) throw err;
+    const {title, summary, content} = req.body;
+    const postContent = await Post.create({
+      title,
+      summary,
+      content,
+      image:newPath,
+      author: info.id
+    });
+    res.json(postContent);
+  });
   });
 
-  res.json(postContent);
-});
+  
+
+app.get('/post', async (req, res) => {
+  const posts = await Post.find().populate('author', ['username']);
+  res.json(posts);
+})
 
 const PORT = 4040;
 app.listen(PORT, function () {
