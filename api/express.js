@@ -15,6 +15,7 @@ const Post = require("./models/Post");
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json());
 app.use(cookieParser());
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
@@ -108,7 +109,10 @@ app.post("/post", uploadMiddleware.single('file'), async (req, res) => {
   
 
 app.get('/post', async (req, res) => {
-  const posts = await Post.find().populate('author', ['username']);
+  const posts = await Post.find()
+  .populate('author', ['username'])
+  .sort({createdAt: -1})
+  .limit(20);
   res.json(posts);
 })
 

@@ -98,3 +98,11 @@ form.login h1, form.register h1 {
 button.post {
   margin-top: 10px;
 }
+p.empty {
+  text-align: center;
+} 
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
